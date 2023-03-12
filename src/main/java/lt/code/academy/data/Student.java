@@ -16,6 +16,13 @@ public class Student {
 
     public Student() {}
 
+    public Student(String studentName, String studentSurname, String studentUserName, String studentPassword) {
+        this.studentName = studentName;
+        this.studentSurname = studentSurname;
+        this.studentUserName = studentUserName;
+        this.studentPassword = studentPassword;
+    }
+
     public Student(ObjectId id, String studentName, String studentSurname, String studentUserName, String studentPassword, Map<String, ExamGrade> grades) {
         this.id = id;
         this.studentName = studentName;

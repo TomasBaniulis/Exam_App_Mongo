@@ -13,10 +13,11 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(ObjectId id, String teacherName, String teacherSurname) {
-        this.id = id;
+    public Teacher(String teacherUsername, String teacherName, String teacherSurname, String teacherPassword) {
+        TeacherUsername = teacherUsername;
         TeacherName = teacherName;
         TeacherSurname = teacherSurname;
+        TeacherPassword = teacherPassword;
     }
 
     public Teacher(ObjectId id, String teacherUsername, String teacherName, String teacherSurname, String teacherPassword) {
