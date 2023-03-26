@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.*;
 import lt.code.academy.data.Exam;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
@@ -16,6 +17,10 @@ public class MongoDBService {
     private final MongoCollection<Student> studentCollection;
     private final MongoCollection<Teacher> teacherCollection;
     private  final MongoCollection<Exam> examCollection;
+
+    private Student student;
+    private Teacher teacher;
+    private Exam exam;
     
     public MongoDBService(){
         MongoClient client = MongoObjectClientProvider.getClient();
@@ -51,6 +56,16 @@ public class MongoDBService {
             teachers.add(teacher);
         }
         return teachers;
+    }
+
+    Student getStudent (String userName, String password){
+        try {
+            student = studentCollection.find(and(eq("studentUserName", userName), eq("studentPassword"))).first();
+        } catch (NullPointerException e){
+            System.out.println("No such user or wrong pasword" + e);
+        }
+
+        return student;
     }
 
 }
