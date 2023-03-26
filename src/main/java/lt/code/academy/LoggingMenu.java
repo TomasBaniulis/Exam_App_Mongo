@@ -71,8 +71,8 @@ public class LoggingMenu {
 
     void studentMenuAction(String action, Student student){
         switch (action){
-            case "1"-> System.out.println("take exam");
-            case "2"-> System.out.println("get grade");
+            case "1"-> examinationService.takeExam(student);
+            case "2"-> examinationService.showStudentGrades(student);
             case "0" -> System.out.println("Exit");
             default -> System.out.println("No such action");
         }

@@ -3,6 +3,7 @@ package lt.code.academy.data;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
+import java.util.List;
 import java.util.Map;
 
 public class Student {
@@ -12,7 +13,7 @@ public class Student {
     private String studentSurname;
     private String studentUserName;
     private String studentPassword;
-    private Map<String, ExamGrade> grades;
+    private List< String> grades;
 
     public Student() {}
 
@@ -23,7 +24,7 @@ public class Student {
         this.studentPassword = studentPassword;
     }
 
-    public Student(ObjectId id, String studentName, String studentSurname, String studentUserName, String studentPassword, Map<String, ExamGrade> grades) {
+    public Student(ObjectId id, String studentName, String studentSurname, String studentUserName, String studentPassword, List< String>grades) {
         this.id = id;
         this.studentName = studentName;
         this.studentSurname = studentSurname;
@@ -72,11 +73,11 @@ public class Student {
         this.studentPassword = studentPassword;
     }
 
-    public Map<String, ExamGrade> getGrades() {
+    public List< String> getGrades() {
         return grades;
     }
 
-    public void setGrades(Map<String, ExamGrade> grades) {
+    public void setGrades(List< String> grades) {
         this.grades = grades;
     }
 

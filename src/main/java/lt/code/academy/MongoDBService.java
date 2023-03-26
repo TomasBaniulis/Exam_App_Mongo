@@ -82,4 +82,8 @@ public class MongoDBService {
         examCollection.updateOne(eq("_id", exam.getId()), Updates.set("studentAnswers", studentAnswers));
         examCollection.updateOne( eq("_id", exam.getId()), Updates.set ("grades", grades));
     }
+
+    void updateStudentGrades (Student student, List<String> grades){
+        studentCollection.updateOne(eq("_id", student.getId()), Updates.set("grades", grades));
+    }
 }

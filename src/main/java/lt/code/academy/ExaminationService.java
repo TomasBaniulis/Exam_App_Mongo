@@ -131,6 +131,15 @@ public class ExaminationService {
         String grade = evaluateStudent(exam, studentAnswers);
         grades.put(student.getId().toString(), grade);
         dbService.updateStudentAnswers(exam, allAnswers, grades);
+        List<String> studentGrades = student.getGrades();
+        if (studentGrades == null){
+            studentGrades = new ArrayList<>();
+        }
+        StringBuilder builder = new StringBuilder();
+        String studentGrade  = builder.append(examName).append("->").append(grade).toString();
+        studentGrades.add(studentGrade);
+        dbService.updateStudentGrades(student, studentGrades);
+
     }
 
     Map <String, String> generateStudentAnswers(Exam exam){
@@ -141,6 +150,7 @@ public class ExaminationService {
             System.out.println(question.getValue());
             System.out.println(testAnswers.get(question.getKey()));
             String answer = String.valueOf(random.nextInt(1,3));
+            System.out.printf("MY ANSWER : %s %n", answer);
             answers.put(question.getKey(), answer);
         }
         return answers;
@@ -169,6 +179,14 @@ public class ExaminationService {
         }
         return isSecondAttempt;
 
+    }
+
+    void showStudentGrades (Student student){
+        try{
+            student.getGrades().forEach(System.out::println);
+        }catch (NullPointerException e){
+            System.out.println("No grades in the system");
+        }
     }
 
 
