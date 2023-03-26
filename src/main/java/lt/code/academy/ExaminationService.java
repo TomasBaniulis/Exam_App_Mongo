@@ -64,7 +64,7 @@ public class ExaminationService {
         Map <String, String> rightAnswers = new HashMap<>();
         int counter = 1;
         for ( int i = 0; i <numberOfQuestions; i++){
-            String answer = String.valueOf(random.nextInt(0,3));
+            String answer = String.valueOf(random.nextInt(1,4));
             rightAnswers.put(String.valueOf(counter), answer);
             counter++;
         }
@@ -149,7 +149,7 @@ public class ExaminationService {
         for(Map.Entry<String, String> question : questions.entrySet()){
             System.out.println(question.getValue());
             System.out.println(testAnswers.get(question.getKey()));
-            String answer = String.valueOf(random.nextInt(1,3));
+            String answer = String.valueOf(random.nextInt(1,4));
             System.out.printf("MY ANSWER : %s %n", answer);
             answers.put(question.getKey(), answer);
         }
