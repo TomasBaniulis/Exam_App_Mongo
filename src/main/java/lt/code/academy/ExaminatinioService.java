@@ -86,13 +86,33 @@ public class ExaminatinioService {
         }
     }
 
-    void updateQuestion (){
+    void update(Teacher teacher){
         System.out.println("Enter exam name");
         String examName = scanner.nextLine();
-        System.out.println("Enter question number");
+        LocalDate date = getDate();
+        Exam exam = dbService.getExam(examName, date);
+        if (exam == null){
+            System.out.printf("no such exam on: %s %n", date.toString());
+            return;
+        }
+        if (!exam.getTeacherSurname().equals(teacher.getTeacherSurname())){
+            System.out.printf("You have no authorisation to make any changes!  %s %s has created this exam", exam.getTeacherName(), exam.getTeacherSurname());
+            return;
+        }
+        Map<String, String> updatedQuestions = updateQuestions(exam);
+        dbService.updateExamQuestions(exam,updatedQuestions);
+
+
+    }
+
+    private Map<String, String> updateQuestions(Exam exam){
+        Map<String, String> questions = exam.getQuestions();
+        System.out.println("Enter question number you want to update");
         String questionNumber = scanner.nextLine();
-        System.out.println("Enter new question");
+        System.out.printf("Old question: %s %n Please type new Question", questions.get(questionNumber));
         String newQuestion = scanner.nextLine();
+        questions.put(questionNumber, newQuestion);
+        return questions;
     }
 
 

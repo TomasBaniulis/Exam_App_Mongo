@@ -5,12 +5,17 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.*;
+
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import lt.code.academy.data.Exam;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MongoDBService {
     
@@ -64,6 +69,14 @@ public class MongoDBService {
 
     Teacher getTeacher (String userName, String password){
         return teacher = teacherCollection.find(and(eq("teacherUserName", userName), eq("teacherPassword", password))).first();
+    }
+
+    Exam getExam (String examName, LocalDate date){
+        return  exam = examCollection.find(and(eq("examName", examName), eq("examDate", date))).first();
+    }
+
+    void updateExamQuestions (Exam exam, Map<String, String> questions){
+        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("examQuestions", questions));
     }
 
 }
