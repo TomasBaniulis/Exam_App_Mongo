@@ -18,7 +18,7 @@ public class LoggingMenu {
 
     Random random = new Random();
 
-    ExaminatinioService examinatinioService = new ExaminatinioService(scanner, faker, dbService, random);
+    ExaminationService examinationService = new ExaminationService(scanner, faker, dbService, random);
 
     void mainMenu(List<Student> students, List <Teacher> teachers){
         String action;
@@ -98,8 +98,9 @@ public class LoggingMenu {
         do {
             System.out.println("""
                 [1] -> Create exam
-                [2] -> Evaluate exam
+                [2] -> Update exam question
                 [3] -> Get student result
+                [4] -> Exam statistics
                 [0] -> Exit
                 """);
             action = scanner.nextLine();
@@ -109,10 +110,10 @@ public class LoggingMenu {
 
     void teacherMenuAction(String action, Teacher teacher){
         switch (action){
-            case "1"-> examinatinioService.generateExam(teacher);
-            case "2"-> System.out.println("evaluate");
+            case "1"-> examinationService.generateExam(teacher);
+            case "2"-> System.out.println("update exam");
             case "3"-> System.out.println("show grades");
-            case "4"-> System.out.println("update exam");
+            case "4"-> System.out.println("");
             case "5"-> System.out.println("statistics");
             case "0" -> System.out.println("Exit");
             default -> System.out.println("No such action");

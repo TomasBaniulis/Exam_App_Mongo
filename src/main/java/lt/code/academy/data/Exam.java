@@ -15,8 +15,11 @@ public class Exam extends Teacher {
     private Map<String, String> questions;
     private Map<String, String> answersToChoose;
     private Map<String, String> rightAnswers;
-    private Map<String, ExamGrade> grades;
+
+    private Map<String, Map<String, String >> studentAnswers;
+    private Map<String, String> grades;
     private Statistic examStatistic;
+
 
     public Exam() {
     }
@@ -30,7 +33,7 @@ public class Exam extends Teacher {
         this.rightAnswers = rightAnswers;
     }
 
-    public Exam(ObjectId id, String teacherName, String teacherSurname, ObjectId id1, String examName, LocalDate examDate, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, String> rightAnswers, Map<String, ExamGrade> grades, Statistic examStatistic) {
+    public Exam(ObjectId id, String teacherName, String teacherSurname, ObjectId id1, String examName, LocalDate examDate, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, String> rightAnswers, Map<String, Map<String, String>> studentAnswers, Map<String, String> grades, Statistic examStatistic) {
         super(id, teacherName, teacherSurname);
         this.id = id1;
         this.examName = examName;
@@ -38,6 +41,7 @@ public class Exam extends Teacher {
         this.questions = questions;
         this.answersToChoose = answersToChoose;
         this.rightAnswers = rightAnswers;
+        this.studentAnswers = studentAnswers;
         this.grades = grades;
         this.examStatistic = examStatistic;
     }
@@ -92,11 +96,19 @@ public class Exam extends Teacher {
         this.rightAnswers = rightAnswers;
     }
 
-    public Map<String, ExamGrade> getGrades() {
+    public Map<String, Map<String, String>> getStudentAnswers() {
+        return studentAnswers;
+    }
+
+    public void setStudentAnswers(Map<String, Map<String, String>> studentAnswers) {
+        this.studentAnswers = studentAnswers;
+    }
+
+    public Map<String, String> getGrades() {
         return grades;
     }
 
-    public void setGrades(Map<String, ExamGrade> grades) {
+    public void setGrades(Map<String, String> grades) {
         this.grades = grades;
     }
 
@@ -117,6 +129,7 @@ public class Exam extends Teacher {
                 ", questions=" + questions +
                 ", answersToChoose=" + answersToChoose +
                 ", rightAnswers=" + rightAnswers +
+                ", studentAnswers=" + studentAnswers +
                 ", grades=" + grades +
                 ", examStatistic=" + examStatistic +
                 '}';

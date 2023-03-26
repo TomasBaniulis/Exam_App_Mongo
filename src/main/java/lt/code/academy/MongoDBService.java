@@ -1,11 +1,10 @@
 package lt.code.academy;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
+
 import static com.mongodb.client.model.Filters.*;
 
+import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import lt.code.academy.data.Exam;
@@ -79,4 +78,8 @@ public class MongoDBService {
         examCollection.updateOne(eq("_id", exam.getId()), Updates.set("examQuestions", questions));
     }
 
+    void updateStudentAnswers (Exam exam, Map <String, Map <String, String>> studentAnswers, Map <String, String> grades) {
+        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("studentAnswers", studentAnswers));
+        examCollection.updateOne( eq("_id", exam.getId()), Updates.set ("grades", grades));
+    }
 }
