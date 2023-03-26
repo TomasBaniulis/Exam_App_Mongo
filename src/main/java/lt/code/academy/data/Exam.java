@@ -1,11 +1,8 @@
 package lt.code.academy.data;
 
-import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 public class Exam extends Teacher {
@@ -18,8 +15,9 @@ public class Exam extends Teacher {
     private Map<String, Integer> rightAnswers;
     private Map<String, ExamGrade> grades;
     private Statistic examStatistic;
-
-    public Exam() {}
+    public Exam(ObjectId id, String teacherName, String teacherSurname) {
+        super(id, teacherName, teacherSurname);
+    }
 
     public Exam(ObjectId id, String teacherName, String teacherSurname, ObjectId id1, String examName, LocalDateTime examTime, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, Integer> rightAnswers, Map<String, ExamGrade> grades, Statistic examStatistic) {
         super(id, teacherName, teacherSurname);

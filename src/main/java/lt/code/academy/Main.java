@@ -24,6 +24,7 @@ public class Main {
         List<Teacher> teachers = dBService.getTeacherList();
 
         students.forEach(System.out::println);
+        teachers.forEach(System.out::println);
 
         menu.mainMenu(students, teachers);
 

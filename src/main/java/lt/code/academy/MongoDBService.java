@@ -59,13 +59,11 @@ public class MongoDBService {
     }
 
     Student getStudent (String userName, String password){
-        try {
-            student = studentCollection.find(and(eq("studentUserName", userName), eq("studentPassword"))).first();
-        } catch (NullPointerException e){
-            System.out.println("No such user or wrong pasword" + e);
-        }
+           return student = studentCollection.find(and(eq("studentUserName", userName), eq("studentPassword", password))).first();
+    }
 
-        return student;
+    Teacher getTeacher (String userName, String password){
+        return teacher = teacherCollection.find(and(eq("teacherUserName", userName), eq("teacherPassword", password))).first();
     }
 
 }
