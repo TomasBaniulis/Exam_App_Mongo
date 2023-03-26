@@ -7,9 +7,9 @@ import lt.code.academy.data.Teacher;
 public class StudentsAndTeachersService {
 
     Faker faker;
-    dBService dBService;
+    MongoDBService dBService;
 
-    public StudentsAndTeachersService(Faker faker, dBService dBService) {
+    public StudentsAndTeachersService(Faker faker, MongoDBService dBService) {
         this.faker = faker;
         this.dBService = dBService;
     }
