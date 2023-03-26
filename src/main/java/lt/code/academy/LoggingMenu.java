@@ -1,16 +1,24 @@
 package lt.code.academy;
 
+import com.github.javafaker.Faker;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class LoggingMenu {
 
     Scanner scanner = new Scanner(System.in);
+
+    Faker faker = new Faker();
     MongoDBService dbService = new MongoDBService();
+
+    Random random = new Random();
+
+    ExaminatinioService examinatinioService = new ExaminatinioService(scanner, faker, dbService, random);
 
     void mainMenu(List<Student> students, List <Teacher> teachers){
         String action;
@@ -101,7 +109,7 @@ public class LoggingMenu {
 
     void teacherMenuAction(String action, Teacher teacher){
         switch (action){
-            case "1"-> System.out.println("create exam");
+            case "1"-> examinatinioService.generateExam(teacher);
             case "2"-> System.out.println("evaluate");
             case "3"-> System.out.println("show grades");
             case "4"-> System.out.println("update exam");

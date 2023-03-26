@@ -2,6 +2,7 @@ package lt.code.academy.data;
 
 import org.bson.types.ObjectId;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -9,21 +10,31 @@ public class Exam extends Teacher {
 
     private ObjectId id;
     private String examName;
-    private LocalDateTime examTime;
+
+    private LocalDate examDate;
     private Map<String, String> questions;
     private Map<String, String> answersToChoose;
-    private Map<String, Integer> rightAnswers;
+    private Map<String, String> rightAnswers;
     private Map<String, ExamGrade> grades;
     private Statistic examStatistic;
-    public Exam(ObjectId id, String teacherName, String teacherSurname) {
-        super(id, teacherName, teacherSurname);
+
+    public Exam() {
     }
 
-    public Exam(ObjectId id, String teacherName, String teacherSurname, ObjectId id1, String examName, LocalDateTime examTime, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, Integer> rightAnswers, Map<String, ExamGrade> grades, Statistic examStatistic) {
+    public Exam(ObjectId id, String teacherName, String teacherSurname, String examName, LocalDate examDate, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, String> rightAnswers) {
+        super(id, teacherName, teacherSurname);
+        this.examName = examName;
+        this.examDate = examDate;
+        this.questions = questions;
+        this.answersToChoose = answersToChoose;
+        this.rightAnswers = rightAnswers;
+    }
+
+    public Exam(ObjectId id, String teacherName, String teacherSurname, ObjectId id1, String examName, LocalDate examDate, Map<String, String> questions, Map<String, String> answersToChoose, Map<String, String> rightAnswers, Map<String, ExamGrade> grades, Statistic examStatistic) {
         super(id, teacherName, teacherSurname);
         this.id = id1;
         this.examName = examName;
-        this.examTime = examTime;
+        this.examDate = examDate;
         this.questions = questions;
         this.answersToChoose = answersToChoose;
         this.rightAnswers = rightAnswers;
@@ -49,12 +60,12 @@ public class Exam extends Teacher {
         this.examName = examName;
     }
 
-    public LocalDateTime getExamTime() {
-        return examTime;
+    public LocalDate getExamDate() {
+        return examDate;
     }
 
-    public void setExamTime(LocalDateTime examTime) {
-        this.examTime = examTime;
+    public void setExamDate(LocalDate examDate) {
+        this.examDate = examDate;
     }
 
     public Map<String, String> getQuestions() {
@@ -73,11 +84,11 @@ public class Exam extends Teacher {
         this.answersToChoose = answersToChoose;
     }
 
-    public Map<String, Integer> getRightAnswers() {
+    public Map<String, String> getRightAnswers() {
         return rightAnswers;
     }
 
-    public void setRightAnswers(Map<String, Integer> rightAnswers) {
+    public void setRightAnswers(Map<String, String> rightAnswers) {
         this.rightAnswers = rightAnswers;
     }
 
@@ -102,7 +113,7 @@ public class Exam extends Teacher {
         return "Exam{" +
                 "id=" + id +
                 ", examName='" + examName + '\'' +
-                ", examTime=" + examTime +
+                ", examDate=" + examDate +
                 ", questions=" + questions +
                 ", answersToChoose=" + answersToChoose +
                 ", rightAnswers=" + rightAnswers +
