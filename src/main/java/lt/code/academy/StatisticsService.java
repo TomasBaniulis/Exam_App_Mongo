@@ -11,11 +11,6 @@ import java.util.Map;
 
 public class StatisticsService {
 
-    private MongoDBService dbService;
-
-    public StatisticsService(MongoDBService dbService, Exam exam) {
-        this.dbService = dbService;
-    }
 
     double getExamGradeAverage (Exam exam){
         Map <String, String> grades = exam.getGrades();
@@ -123,12 +118,5 @@ public class StatisticsService {
         return new Statistic(id, examId, gradeAverage, highestGrade, lowestGrade, numberOfStudents, questionStatistics );
 
         }
-
-
-        void printStatistics (){
-
-        }
-
-
 
 }

@@ -16,9 +16,11 @@ public class LoggingMenu {
     Faker faker = new Faker();
     MongoDBService dbService = new MongoDBService();
 
+    StatisticsService statisticsService = new StatisticsService();
+
     Random random = new Random();
 
-    ExaminationService examinationService = new ExaminationService(scanner, faker, dbService, random);
+    ExaminationService examinationService = new ExaminationService(scanner, faker, dbService, random, statisticsService);
 
     void mainMenu(List<Student> students, List <Teacher> teachers){
         String action;
@@ -100,7 +102,8 @@ public class LoggingMenu {
                 [1] -> Create exam
                 [2] -> Update exam question
                 [3] -> Get student result
-                [4] -> Exam statistics
+                [4] -> Print exam list
+                [5] -> Exam statistics
                 [0] -> Exit
                 """);
             action = scanner.nextLine();

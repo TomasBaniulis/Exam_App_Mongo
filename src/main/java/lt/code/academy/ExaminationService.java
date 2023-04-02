@@ -3,6 +3,7 @@ package lt.code.academy;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.javafaker.Faker;
 import lt.code.academy.data.Exam;
+import lt.code.academy.data.Statistic;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
@@ -20,11 +21,14 @@ public class ExaminationService {
     MongoDBService dbService;
     Random random;
 
-    public ExaminationService(Scanner scanner, Faker faker, MongoDBService dbService, Random random) {
+    StatisticsService statisticsService;
+
+    public ExaminationService(Scanner scanner, Faker faker, MongoDBService dbService, Random random, StatisticsService statisticsService) {
         this.scanner = scanner;
         this.faker = faker;
         this.dbService = dbService;
         this.random = random;
+        this.statisticsService = statisticsService;
     }
 
     void generateExam (Teacher teacher){
@@ -147,6 +151,9 @@ public class ExaminationService {
         String studentGrade  = builder.append(examName).append("->").append(grade).toString();
         studentGrades.add(studentGrade);
         dbService.updateStudentGrades(student, studentGrades);
+
+        Statistic statistic = statisticsService.generateStatistic(exam);
+        dbService.updateExamStatistics(exam, statistic);
 
     }
 
