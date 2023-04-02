@@ -4,12 +4,12 @@ import java.util.Map;
 
 public class QuestionStatistic {
     private String questionId;
-    private double percentOfRightAnswers;
+    private int percentOfRightAnswers;
     private Map<String, Integer> percentOfStudentClicksPerAnswer;
 
     public QuestionStatistic() {}
 
-    public QuestionStatistic(String questionId, double percentOfRightAnswers, Map<String, Integer> percentOfStudentClicksPerAnswer) {
+    public QuestionStatistic(String questionId, int percentOfRightAnswers, Map<String, Integer> percentOfStudentClicksPerAnswer) {
         this.questionId = questionId;
         this.percentOfRightAnswers = percentOfRightAnswers;
         this.percentOfStudentClicksPerAnswer = percentOfStudentClicksPerAnswer;
@@ -27,7 +27,7 @@ public class QuestionStatistic {
         return percentOfRightAnswers;
     }
 
-    public void setPercentOfRightAnswers(double percentOfRightAnswers) {
+    public void setPercentOfRightAnswers(int percentOfRightAnswers) {
         this.percentOfRightAnswers = percentOfRightAnswers;
     }
 

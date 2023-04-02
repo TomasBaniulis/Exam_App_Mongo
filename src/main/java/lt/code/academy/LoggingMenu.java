@@ -113,14 +113,10 @@ public class LoggingMenu {
             case "1"-> examinationService.generateExam(teacher);
             case "2"-> System.out.println("update exam");
             case "3"-> System.out.println("show grades");
-            case "4"-> System.out.println("");
-            case "5"-> System.out.println("statistics");
+            case "4"-> System.out.println("statistics");
             case "0" -> System.out.println("Exit");
             default -> System.out.println("No such action");
         }
     }
-
-
-
 
 }
