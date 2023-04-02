@@ -12,14 +12,12 @@ import java.util.Map;
 public class StatisticsService {
 
     private MongoDBService dbService;
-    private Exam exam;
 
     public StatisticsService(MongoDBService dbService, Exam exam) {
         this.dbService = dbService;
-        this.exam = exam;
     }
 
-    double getExamGradeAverage (){
+    double getExamGradeAverage (Exam exam){
         Map <String, String> grades = exam.getGrades();
         int counter = 0;
         for (Map.Entry<String, String> grade : grades.entrySet()){
@@ -28,7 +26,7 @@ public class StatisticsService {
        return counter/grades.size();
     }
 
-    double getHighestGrade (){
+    double getHighestGrade (Exam exam){
         Map <String, String> grades = exam.getGrades();
         double highestGrade = 0;
         for (Map.Entry<String, String> grade : grades.entrySet()){
@@ -40,19 +38,19 @@ public class StatisticsService {
         return highestGrade;
     }
 
-    double getLowesGrade () {
+    double getLowesGrade (Exam exam) {
         Map<String, String> grades = exam.getGrades();
-        double lowestGrade = 0;
+        double lowestGrade = 10;
         for (Map.Entry<String, String> grade : grades.entrySet()) {
             double studentGrade = Double.parseDouble(grade.getValue());
-            if (studentGrade < lowestGrade && studentGrade > 0) {
+            if (studentGrade < lowestGrade) {
                 lowestGrade = studentGrade;
             }
         }
         return lowestGrade;
     }
 
-    List <QuestionStatistic> generateQuestionStatisticList (){
+    List <QuestionStatistic> generateQuestionStatisticList (Exam exam){
         List <QuestionStatistic> questionStatistics= new ArrayList<>();
         Map<String, String > rightAnswers = exam.getRightAnswers();
         Map<String, Map<String,String>> studentsAnswers = exam.getStudentAnswers();
@@ -105,24 +103,29 @@ public class StatisticsService {
         }
 
 
-        Statistic generateStatistic (){
+        Statistic generateStatistic (Exam exam){
 
         String examId = String.valueOf(exam.getId());
 
         String id = examId + "stat";
 
-        double gradeAverage = getExamGradeAverage();
+        double gradeAverage = getExamGradeAverage(exam);
 
-        double highestGrade = getHighestGrade();
+        double highestGrade = getHighestGrade(exam);
 
-        double lowestGrade = getLowesGrade();
+        double lowestGrade = getLowesGrade(exam);
 
         int numberOfStudents = exam.getStudentAnswers().size();
 
-        List<QuestionStatistic> questionStatistics= generateQuestionStatisticList();
+        List<QuestionStatistic> questionStatistics= generateQuestionStatisticList(exam);
 
 
         return new Statistic(id, examId, gradeAverage, highestGrade, lowestGrade, numberOfStudents, questionStatistics );
+
+        }
+
+
+        void printStatistics (){
 
         }
 

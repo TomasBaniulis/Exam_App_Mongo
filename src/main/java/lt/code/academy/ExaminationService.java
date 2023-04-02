@@ -124,6 +124,14 @@ public class ExaminationService {
             System.out.println("you can't take exam today");
            return;
         }
+
+        Boolean secondAttempt = checkForSecondAttempt(student, exam);
+
+        if (secondAttempt = true) {
+            System.out.println("It's your second attempt to take exam");
+            return;
+        }
+
         Map<String, String > studentAnswers = generateStudentAnswers(exam);
         Map<String, Map<String, String>> allAnswers = new HashMap<>();
         Map<String, String> grades = new HashMap<>();

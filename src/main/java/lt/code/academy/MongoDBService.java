@@ -8,6 +8,7 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import lt.code.academy.data.Exam;
+import lt.code.academy.data.Statistic;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
@@ -88,5 +89,7 @@ public class MongoDBService {
     }
 
 
-    void updateExamStatistics
+    void updateExamStatistics (Exam exam, Statistic statistic){
+        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("statistic", statistic));
+    }
 }
