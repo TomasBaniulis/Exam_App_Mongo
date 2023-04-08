@@ -114,7 +114,7 @@ public class LoggingMenu {
     void teacherMenuAction(String action, Teacher teacher){
         switch (action){
             case "1"-> examinationService.generateExam(teacher);
-            case "2"-> System.out.println("update exam");
+            case "2"-> examinationService.updateExam();
             case "3"-> examinationService.showAllStudentGrades();
             case "4"-> dbService.showAllExams();
             case "5"-> examinationService.showExamStatistic();

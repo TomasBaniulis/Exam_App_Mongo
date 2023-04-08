@@ -114,6 +114,14 @@ public class ExaminationService {
         return questions;
     }
 
+    void updateExam(){
+        System.out.println("Enter exam id");
+        String examId = scanner.nextLine();
+        Exam exam = dbService.getExamById(examId);
+        Map<String, String> updatedQuestions = updateQuestions(exam);
+        dbService.updateExamQuestions(exam, updatedQuestions);
+    }
+
     void takeExam (Student student){
         System.out.println("Enter exam name");
         String examName = scanner.nextLine();
@@ -192,12 +200,7 @@ public class ExaminationService {
             }
         }
         return isSecondAttempt;
-
     }
-
-
-
-
 
     void showStudentGrades (Student student){
         try{
