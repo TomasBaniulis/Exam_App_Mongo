@@ -81,9 +81,11 @@ public class MongoDBService {
         return  exam = examCollection.find(eq("_id", id)).first();
     }
 
+    Exam getExamByName (String examName) {return  exam = examCollection.find(eq("examName", examName)).first();}
+
 
     void updateExamQuestions (Exam exam, Map<String, String> questions){
-        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("examQuestions", questions));
+        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("questions", questions));
     }
 
     void updateStudentAnswers (Exam exam, Map <String, Map <String, String>> studentAnswers, Map <String, String> grades) {
@@ -95,9 +97,8 @@ public class MongoDBService {
         studentCollection.updateOne(eq("_id", student.getId()), Updates.set("grades", grades));
     }
 
-
     void updateExamStatistics (Exam exam, Statistic statistic){
-        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("statistic", statistic));
+        examCollection.updateOne(eq("_id", exam.getId()), Updates.set("examStatistic", statistic));
     }
 
     void showAllExams (){
@@ -106,7 +107,6 @@ public class MongoDBService {
             System.out.println(exam);
         }
     }
-
 
 }
 

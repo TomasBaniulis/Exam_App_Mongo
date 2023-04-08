@@ -14,6 +14,9 @@ public class StatisticsService {
 
     double getExamGradeAverage (Exam exam){
         Map <String, String> grades = exam.getGrades();
+        if (grades == null){
+            return 0;
+        }
         double counter = 0;
         for (Map.Entry<String, String> grade : grades.entrySet()){
             counter += Integer.parseInt(grade.getValue());
@@ -66,9 +69,9 @@ public class StatisticsService {
                     }
                 }
 
-                int answerOnePercent = counterOne/studentsAnswers.size();
-                int answerTwoPercent = counterTwo/studentsAnswers.size();
-                int answerTheePercent = counterThree/studentsAnswers.size();
+                int answerOnePercent = counterOne/studentsAnswers.size()*100;
+                int answerTwoPercent = counterTwo/studentsAnswers.size()*100;
+                int answerTheePercent = counterThree/studentsAnswers.size()*100;
 
                 Map <String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
                 percentOfStudentClicksPerQuestionAnswer.put("1", answerOnePercent);

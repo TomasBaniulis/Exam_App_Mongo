@@ -90,14 +90,13 @@ public class ExaminationService {
     void update(Teacher teacher) {
         System.out.println("Enter exam name");
         String examName = scanner.nextLine();
-        LocalDate date = getDate();
-        Exam exam = dbService.getExam(examName, date);
+        Exam exam = dbService.getExamByName(examName);
         if (exam == null) {
-            System.out.printf("no such exam on: %s %n", date.toString());
+            System.out.printf("no such exam!%n ");
             return;
         }
         if (!exam.getTeacherSurname().equals(teacher.getTeacherSurname())) {
-            System.out.printf("You have no authorisation to make any changes!  %s %s has created this exam", exam.getTeacherName(), exam.getTeacherSurname());
+            System.out.printf("You have no authorisation to make any changes!  %s %s has created this exam%n", exam.getTeacherName(), exam.getTeacherSurname());
             return;
         }
         Map<String, String> updatedQuestions = updateQuestions(exam);
@@ -112,14 +111,6 @@ public class ExaminationService {
         String newQuestion = scanner.nextLine();
         questions.put(questionNumber, newQuestion);
         return questions;
-    }
-
-    void updateExam(){
-        System.out.println("Enter exam id");
-        String examId = scanner.nextLine();
-        Exam exam = dbService.getExamById(examId);
-        Map<String, String> updatedQuestions = updateQuestions(exam);
-        dbService.updateExamQuestions(exam, updatedQuestions);
     }
 
     void takeExam (Student student){
@@ -138,8 +129,7 @@ public class ExaminationService {
 
         Boolean secondAttempt = checkForSecondAttempt(student, exam);
 
-        if (secondAttempt = true) {
-            System.out.println("It's your second attempt to take exam");
+        if (secondAttempt == true) {
             return;
         }
 
@@ -194,8 +184,12 @@ public class ExaminationService {
     boolean checkForSecondAttempt (Student student, Exam exam ){
         Map <String, String> grades = exam.getGrades();
         boolean isSecondAttempt = false;
+        if (grades == null){
+            return false;
+        }
         for (Map.Entry<String, String> grade : grades.entrySet()){
             if (grade.getKey().equals(student.getId())){
+                System.out.println("It's your second attempt!");
                 isSecondAttempt = true;
             }
         }
@@ -211,41 +205,56 @@ public class ExaminationService {
     }
 
 
-    void  showAllStudentGrades (){
-        System.out.println("enter exam id");
-        String examId = scanner.nextLine();
+    void  showAllStudentGrades (List<Student> students){
+        System.out.println("enter exam name");
+        String examName = scanner.nextLine();
 
         try {
-            Exam exam = dbService.getExamById(examId);
+            Exam exam = dbService.getExamByName(examName);
             Map<String, String> studentGrades = exam.getGrades();
             for (Map.Entry<String, String> grade : studentGrades.entrySet()){
-                System.out.printf("%s grade: %s %n", grade.getKey(), grade.getValue());
+                String fullStudentName = getStudentName(grade.getKey(),students);
+                if (fullStudentName == null){
+                    System.out.println("negauna studento vardo!!!!");
+                }
+
+                System.out.printf("%s grade: %s %n", fullStudentName, grade.getValue());
             }
         } catch (NullPointerException e){
-            System.out.println("No such exam or no student grades exist");
+            System.out.println("No such exam or no student grades exist" + e);
         }
     }
 
+    String getStudentName (String id, List<Student> students){
+        String fullName = null;
+        for (Student student : students){
+            if (student.getId().toString() == id){
+                fullName = student.getStudentName() + " " + student.getStudentSurname();
+            }
+        }
+        return fullName;
+    }
+
    void printExamStatistics (Exam exam){
+
         Statistic stat = exam.getExamStatistic();
         List<QuestionStatistic> questionStat = stat.getQuestionStatistics();
-       System.out.printf( "Exam %s statistics: %n", exam.getExamName() );
-       System.out.println("Grade average: " + stat.getGradeAverage());
-       System.out.println("Highest grade: " + stat.getHighestGrade());
-       System.out.println("Lowest grade: " + stat.getLowestGrade());
-       System.out.println("Number of students who took exam: " + stat.getExamId());
-       System.out.println("----------------------------------------------------------------------------");
-       System.out.println("Exam question statistic:");
-       questionStat.forEach(System.out::println);
+        System.out.printf( "Exam %s statistics: %n", exam.getExamName() );
+        System.out.println("Grade average: " + stat.getGradeAverage());
+        System.out.println("Highest grade: " + stat.getHighestGrade());
+        System.out.println("Lowest grade: " + stat.getLowestGrade());
+        System.out.println("Number of students who took exam: " + stat.getNumberOfStudents());
+        System.out.println("------------------------------------------------------------------------------------------------------");
+        System.out.println("Exam question statistic:");
+        questionStat.forEach(System.out::println);
 
    }
 
    void showExamStatistic (){
-       System.out.println("Enter exam id");
-       String examId = scanner.nextLine();
-       Exam exam = dbService.getExamById(examId);
+       System.out.println("Enter exam name");
+       String examName = scanner.nextLine();
+       Exam exam = dbService.getExamByName(examName);
        printExamStatistics(exam);
    }
-
 
 }

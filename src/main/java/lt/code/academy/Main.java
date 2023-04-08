@@ -5,6 +5,8 @@ import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -15,7 +17,6 @@ public class Main {
         Faker faker = new Faker();
         MongoDBService dBService = new MongoDBService();
         StudentsAndTeachersService studentsAndTeachersService = new StudentsAndTeachersService(faker, dBService);
-        LoggingMenu menu = new LoggingMenu();
 
 //        studentsAndTeachersService.generateStudents(10);
 //        studentsAndTeachersService.generateTeachers(10);
@@ -23,8 +24,10 @@ public class Main {
         List<Student> students = dBService.getStudentList();
         List<Teacher> teachers = dBService.getTeacherList();
 
-        students.forEach(System.out::println);
-        teachers.forEach(System.out::println);
+//        students.forEach(System.out::println);
+//        teachers.forEach(System.out::println);
+
+        LoggingMenu menu = new LoggingMenu(students, teachers,faker);
 
         menu.mainMenu(students, teachers);
 

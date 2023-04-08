@@ -11,14 +11,22 @@ import java.util.Scanner;
 
 public class LoggingMenu {
 
-    Scanner scanner = new Scanner(System.in);
-
-    Faker faker = new Faker();
+    List<Student> students;
+    List<Teacher> teachers;
+    Faker faker;
     MongoDBService dbService = new MongoDBService();
 
-    StatisticsService statisticsService = new StatisticsService();
+    public LoggingMenu(List<Student> students, List<Teacher> teachers, Faker faker) {
+        this.students = students;
+        this.teachers = teachers;
+        this.faker = faker;
+    }
+
+    Scanner scanner = new Scanner(System.in);
 
     Random random = new Random();
+
+    StatisticsService statisticsService = new StatisticsService();
 
     ExaminationService examinationService = new ExaminationService(scanner, faker, dbService, random, statisticsService);
 
@@ -114,8 +122,8 @@ public class LoggingMenu {
     void teacherMenuAction(String action, Teacher teacher){
         switch (action){
             case "1"-> examinationService.generateExam(teacher);
-            case "2"-> examinationService.updateExam();
-            case "3"-> examinationService.showAllStudentGrades();
+            case "2"-> examinationService.update(teacher);
+            case "3"-> examinationService.showAllStudentGrades(students);
             case "4"-> dbService.showAllExams();
             case "5"-> examinationService.showExamStatistic();
             case "0" -> System.out.println("Exit");

@@ -23,7 +23,7 @@ public class QuestionStatistic {
         this.questionId = questionId;
     }
 
-    public double getPercentOfRightAnswers() {
+    public int getPercentOfRightAnswers() {
         return percentOfRightAnswers;
     }
 
