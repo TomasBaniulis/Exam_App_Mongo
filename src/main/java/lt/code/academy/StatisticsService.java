@@ -14,7 +14,7 @@ public class StatisticsService {
 
     double getExamGradeAverage (Exam exam){
         Map <String, String> grades = exam.getGrades();
-        int counter = 0;
+        double counter = 0;
         for (Map.Entry<String, String> grade : grades.entrySet()){
             counter += Integer.parseInt(grade.getValue());
         }

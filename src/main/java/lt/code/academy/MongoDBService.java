@@ -12,8 +12,10 @@ import lt.code.academy.data.Statistic;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
 
+import javax.swing.text.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +77,11 @@ public class MongoDBService {
         return  exam = examCollection.find(and(eq("examName", examName), eq("examDate", date))).first();
     }
 
+    Exam getExamById (String id){
+        return  exam = examCollection.find(eq("_id", id)).first();
+    }
+
+
     void updateExamQuestions (Exam exam, Map<String, String> questions){
         examCollection.updateOne(eq("_id", exam.getId()), Updates.set("examQuestions", questions));
     }
@@ -92,4 +99,14 @@ public class MongoDBService {
     void updateExamStatistics (Exam exam, Statistic statistic){
         examCollection.updateOne(eq("_id", exam.getId()), Updates.set("statistic", statistic));
     }
+
+    void showAllExams (){
+        FindIterable <Exam> exams = examCollection.find();
+        for (Exam exam : exams){
+            System.out.println(exam);
+        }
+    }
+
+
 }
+

@@ -25,4 +25,73 @@ public class Statistic {
         this.numberOfStudents = numberOfStudents;
         this.questionStatistics = questionStatistics;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getExamId() {
+        return examId;
+    }
+
+    public void setExamId(String examId) {
+        this.examId = examId;
+    }
+
+    public Double getGradeAverage() {
+        return gradeAverage;
+    }
+
+    public void setGradeAverage(Double gradeAverage) {
+        this.gradeAverage = gradeAverage;
+    }
+
+    public Double getHighestGrade() {
+        return highestGrade;
+    }
+
+    public void setHighestGrade(Double highestGrade) {
+        this.highestGrade = highestGrade;
+    }
+
+    public Double getLowestGrade() {
+        return lowestGrade;
+    }
+
+    public void setLowestGrade(Double lowestGrade) {
+        this.lowestGrade = lowestGrade;
+    }
+
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public void setNumberOfStudents(int numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public List<QuestionStatistic> getQuestionStatistics() {
+        return questionStatistics;
+    }
+
+    public void setQuestionStatistics(List<QuestionStatistic> questionStatistics) {
+        this.questionStatistics = questionStatistics;
+    }
+
+    @Override
+    public String toString() {
+        return "Statistic{" +
+                "id='" + id + '\'' +
+                ", examId='" + examId + '\'' +
+                ", gradeAverage=" + gradeAverage +
+                ", highestGrade=" + highestGrade +
+                ", lowestGrade=" + lowestGrade +
+                ", numberOfStudents=" + numberOfStudents +
+                ", questionStatistics=" + questionStatistics +
+                '}';
+    }
 }

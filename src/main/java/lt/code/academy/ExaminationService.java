@@ -2,13 +2,12 @@ package lt.code.academy;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.javafaker.Faker;
-import lt.code.academy.data.Exam;
-import lt.code.academy.data.Statistic;
-import lt.code.academy.data.Student;
-import lt.code.academy.data.Teacher;
+import com.mongodb.client.ClientSession;
+import lt.code.academy.data.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.ScatteringByteChannel;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -196,6 +195,10 @@ public class ExaminationService {
 
     }
 
+
+
+
+
     void showStudentGrades (Student student){
         try{
             student.getGrades().forEach(System.out::println);
@@ -204,6 +207,42 @@ public class ExaminationService {
         }
     }
 
+
+    void  showAllStudentGrades (){
+        System.out.println("enter exam id");
+        String examId = scanner.nextLine();
+
+        try {
+            Exam exam = dbService.getExamById(examId);
+            Map<String, String> studentGrades = exam.getGrades();
+            for (Map.Entry<String, String> grade : studentGrades.entrySet()){
+                System.out.printf("%s grade: %s %n", grade.getKey(), grade.getValue());
+            }
+        } catch (NullPointerException e){
+            System.out.println("No such exam or no student grades exist");
+        }
+    }
+
+   void printExamStatistics (Exam exam){
+        Statistic stat = exam.getExamStatistic();
+        List<QuestionStatistic> questionStat = stat.getQuestionStatistics();
+       System.out.printf( "Exam %s statistics: %n", exam.getExamName() );
+       System.out.println("Grade average: " + stat.getGradeAverage());
+       System.out.println("Highest grade: " + stat.getHighestGrade());
+       System.out.println("Lowest grade: " + stat.getLowestGrade());
+       System.out.println("Number of students who took exam: " + stat.getExamId());
+       System.out.println(----------------------------------------------------------------------------);
+       System.out.println("Exam question statistic:");
+       questionStat.forEach(System.out::println);
+
+   }
+
+   void showExamStatistic (){
+       System.out.println("Enter exam id");
+       String examId = scanner.nextLine();
+       Exam exam = dbService.getExamById(examId);
+       printExamStatistics(exam);
+   }
 
 
 }
