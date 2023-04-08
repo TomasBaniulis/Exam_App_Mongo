@@ -234,7 +234,7 @@ public class ExaminationService {
        System.out.println("Highest grade: " + stat.getHighestGrade());
        System.out.println("Lowest grade: " + stat.getLowestGrade());
        System.out.println("Number of students who took exam: " + stat.getExamId());
-       System.out.println(----------------------------------------------------------------------------);
+       System.out.println("----------------------------------------------------------------------------");
        System.out.println("Exam question statistic:");
        questionStat.forEach(System.out::println);
 
