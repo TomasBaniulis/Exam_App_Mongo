@@ -189,7 +189,7 @@ public class ExaminationService {
             return false;
         }
         for (Map.Entry<String, String> grade : grades.entrySet()){
-            if (grade.getKey().equals(student.getId())){
+            if (grade.getKey().equals(student.getId().toString())){
                 System.out.println("It's your second attempt!");
                 isSecondAttempt = true;
             }
