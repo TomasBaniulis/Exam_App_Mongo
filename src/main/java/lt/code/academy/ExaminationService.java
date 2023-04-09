@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.javafaker.Faker;
 import com.mongodb.client.ClientSession;
 import lt.code.academy.data.*;
+import org.bson.types.ObjectId;
 
 import java.io.File;
 import java.io.IOException;
@@ -229,7 +230,7 @@ public class ExaminationService {
 
     String getStudentName (String id, List<Student> students){
         for (Student student : students){
-            if (student.getId().toString() == id){
+            if (student.getId().toString().equals(id)){
                 String fullName = student.getStudentName() + " " + student.getStudentSurname();
                 return  fullName;
             }
