@@ -11,6 +11,7 @@ import lt.code.academy.data.Exam;
 import lt.code.academy.data.Statistic;
 import lt.code.academy.data.Student;
 import lt.code.academy.data.Teacher;
+import org.bson.types.ObjectId;
 
 import javax.swing.text.Document;
 import java.time.LocalDate;
@@ -77,7 +78,7 @@ public class MongoDBService {
         return  exam = examCollection.find(and(eq("examName", examName), eq("examDate", date))).first();
     }
 
-    Exam getExamById (String id){
+    Exam getExamById (ObjectId id){
         return  exam = examCollection.find(eq("_id", id)).first();
     }
 

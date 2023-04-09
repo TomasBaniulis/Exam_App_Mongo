@@ -148,8 +148,10 @@ public class ExaminationService {
         studentGrades.add(studentGrade);
         dbService.updateStudentGrades(student, studentGrades);
 
-        Statistic statistic = statisticsService.generateStatistic(exam);
-        dbService.updateExamStatistics(exam, statistic);
+        Exam updatedExam = dbService.getExamById(exam.getId());
+
+        Statistic statistic = statisticsService.generateStatistic(updatedExam);
+        dbService.updateExamStatistics(updatedExam, statistic);
 
     }
 
