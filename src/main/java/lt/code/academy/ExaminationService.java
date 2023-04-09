@@ -17,15 +17,14 @@ public class ExaminationService {
 
     Scanner scanner;
     Faker faker;
-    MongoDBService dbService;
+    MongoDBService dbService = new MongoDBService();
     Random random;
 
     StatisticsService statisticsService;
 
-    public ExaminationService(Scanner scanner, Faker faker, MongoDBService dbService, Random random, StatisticsService statisticsService) {
+    public ExaminationService(Scanner scanner, Faker faker, Random random, StatisticsService statisticsService) {
         this.scanner = scanner;
         this.faker = faker;
-        this.dbService = dbService;
         this.random = random;
         this.statisticsService = statisticsService;
     }
@@ -214,6 +213,7 @@ public class ExaminationService {
             Map<String, String> studentGrades = exam.getGrades();
             for (Map.Entry<String, String> grade : studentGrades.entrySet()){
                 String fullStudentName = getStudentName(grade.getKey(),students);
+                System.out.println("studento id:" + grade.getKey());
                 if (fullStudentName == null){
                     System.out.println("negauna studento vardo!!!!");
                 }
@@ -226,18 +226,22 @@ public class ExaminationService {
     }
 
     String getStudentName (String id, List<Student> students){
-        String fullName = null;
         for (Student student : students){
             if (student.getId().toString() == id){
-                fullName = student.getStudentName() + " " + student.getStudentSurname();
+                String fullName = student.getStudentName() + " " + student.getStudentSurname();
+                return  fullName;
             }
         }
-        return fullName;
+        return "unknown student ID";
     }
 
    void printExamStatistics (Exam exam){
 
         Statistic stat = exam.getExamStatistic();
+        if (stat == null){
+            System.out.println("Exam has no statistic yet!");
+            return;
+        }
         List<QuestionStatistic> questionStat = stat.getQuestionStatistics();
         System.out.printf( "Exam %s statistics: %n", exam.getExamName() );
         System.out.println("Grade average: " + stat.getGradeAverage());

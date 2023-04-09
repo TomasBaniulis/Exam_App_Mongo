@@ -24,10 +24,10 @@ public class Main {
         List<Student> students = dBService.getStudentList();
         List<Teacher> teachers = dBService.getTeacherList();
 
-//        students.forEach(System.out::println);
-//        teachers.forEach(System.out::println);
+        students.forEach(System.out::println);
+        teachers.forEach(System.out::println);
 
-        LoggingMenu menu = new LoggingMenu(students, teachers,faker);
+        LoggingMenu menu = new LoggingMenu(students, teachers);
 
         menu.mainMenu(students, teachers);
 

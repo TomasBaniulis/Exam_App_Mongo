@@ -13,14 +13,14 @@ public class LoggingMenu {
 
     List<Student> students;
     List<Teacher> teachers;
-    Faker faker;
-    MongoDBService dbService = new MongoDBService();
-
-    public LoggingMenu(List<Student> students, List<Teacher> teachers, Faker faker) {
+    public LoggingMenu(List<Student> students, List<Teacher> teachers) {
         this.students = students;
         this.teachers = teachers;
-        this.faker = faker;
     }
+
+    Faker faker = new Faker();
+
+    MongoDBService dbService = new MongoDBService();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -28,7 +28,7 @@ public class LoggingMenu {
 
     StatisticsService statisticsService = new StatisticsService();
 
-    ExaminationService examinationService = new ExaminationService(scanner, faker, dbService, random, statisticsService);
+    ExaminationService examinationService = new ExaminationService(scanner, faker, random, statisticsService);
 
     void mainMenu(List<Student> students, List <Teacher> teachers){
         String action;
