@@ -132,12 +132,16 @@ public class ExaminationService {
         if (secondAttempt == true) {
             return;
         }
+        System.out.println("---------------------- * START * --------------------------");
 
         Map<String, String > studentAnswers = generateStudentAnswers(exam);
-        Map<String, Map<String, String>> allAnswers = new HashMap<>();
-        Map<String, String> grades = new HashMap<>();
+        Map<String, Map<String, String>> allAnswers = getAllStudentAnswersMap(exam);
+        Map<String, String> grades = getGradesMap(exam);
         allAnswers.put(student.getId().toString(), studentAnswers);
         String grade = evaluateStudent(exam, studentAnswers);
+        System.out.println("------------------------------- * FINISH * ----------------------------------");
+        System.out.println("YOR GRADE : " + grade);
+        System.out.printf("%n");
         grades.put(student.getId().toString(), grade);
         dbService.updateStudentAnswers(exam, allAnswers, grades);
         List<String> studentGrades = student.getGrades();
@@ -169,6 +173,27 @@ public class ExaminationService {
         }
         return answers;
     }
+
+
+    private Map<String, Map<String, String>> getAllStudentAnswersMap (Exam exam){
+        Map<String, Map<String, String>> allStudentAnswers = exam.getStudentAnswers();
+        if (allStudentAnswers == null){
+
+            Map<String, Map<String, String>> newStudentAnswersMap = new HashMap<>();
+            return newStudentAnswersMap;
+        }
+        return allStudentAnswers;
+    }
+
+    private Map<String, String> getGradesMap (Exam exam){
+        Map<String, String> grades = exam.getGrades();
+        if (grades == null){
+            Map<String, String> newGradesMap = new HashMap<>();
+            return newGradesMap;
+        }
+        return grades;
+    }
+
 
     private String evaluateStudent( Exam exam, Map <String, String> studentAnswers){
         Map <String, String> rightAnswers = exam.getRightAnswers();
@@ -216,11 +241,6 @@ public class ExaminationService {
             Map<String, String> studentGrades = exam.getGrades();
             for (Map.Entry<String, String> grade : studentGrades.entrySet()){
                 String fullStudentName = getStudentName(grade.getKey(),students);
-                System.out.println("studento id:" + grade.getKey());
-                if (fullStudentName == null){
-                    System.out.println("negauna studento vardo!!!!");
-                }
-
                 System.out.printf("%s grade: %s %n", fullStudentName, grade.getValue());
             }
         } catch (NullPointerException e){

@@ -54,26 +54,42 @@ public class StatisticsService {
         Map<String, Map<String,String>> studentsAnswers = exam.getStudentAnswers();
         int questionNumber = 1;
         for (int i = 0; i < rightAnswers.size(); i++){
+            QuestionStatistic questionStatistic = questionStatisticsCalculation(rightAnswers, studentsAnswers,questionNumber);
+            questionStatistics.add(questionStatistic);
+            questionNumber++;
+            }
+            return questionStatistics;
+        }
+
+
+        QuestionStatistic questionStatisticsCalculation (Map<String , String> rightAnswers, Map<String, Map<String, String>> studentsAnswers, int questionNumber ) {
+            QuestionStatistic questionStatistic = new QuestionStatistic();
             int counterOne = 0;
             int counterTwo = 0;
             int counterThree = 0;
-            for (Map.Entry<String, Map<String,String>> oneStudentAnswer : studentsAnswers.entrySet()){
-                Map <String, String> studentAnswers = oneStudentAnswer.getValue();
-                for (Map.Entry<String , String> answer: studentAnswers.entrySet()){
-                    if (String.valueOf(questionNumber).equals(answer.getKey())){
-                        switch (answer.getValue()){
-                            case "1" -> counterOne++;
-                            case "2" -> counterTwo++;
-                            case "3" -> counterThree++;
-                        }
-                    }
+
+            for (Map.Entry<String, Map<String, String>> oneStudentAnswer : studentsAnswers.entrySet()) {
+                Map<String, String> studentAnswers = oneStudentAnswer.getValue();
+                switch (studentAnswers.get(String.valueOf(questionNumber))) {
+                    case "1" -> counterOne++;
+                    case "2" -> counterTwo++;
+                    case "3" -> counterThree++;
                 }
+            }
+                System.out.println("counter one:" + counterOne);
+                System.out.println("counter two:" + counterTwo);
+                System.out.println("counter three" + counterThree);
 
-                int answerOnePercent = counterOne/studentsAnswers.size()*100;
-                int answerTwoPercent = counterTwo/studentsAnswers.size()*100;
-                int answerTheePercent = counterThree/studentsAnswers.size()*100;
+                System.out.println("student size:" + studentsAnswers.size());
 
-                Map <String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
+                int answerOnePercent = counterOne / studentsAnswers.size() * 100;
+                System.out.println("answer one percent:" + answerOnePercent);
+                int answerTwoPercent = counterTwo / studentsAnswers.size() * 100;
+                System.out.println("answer two percent:" + answerTwoPercent);
+                int answerTheePercent = counterThree / studentsAnswers.size() * 100;
+                System.out.println("answer three percent: " + answerTheePercent);
+
+                Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
                 percentOfStudentClicksPerQuestionAnswer.put("1", answerOnePercent);
                 percentOfStudentClicksPerQuestionAnswer.put("2", answerTwoPercent);
                 percentOfStudentClicksPerQuestionAnswer.put("3", answerTheePercent);
@@ -82,23 +98,17 @@ public class StatisticsService {
 
                 int percentOfRightAnswer = 0;
 
-                switch (rightAnswers.get(String.valueOf(questionNumber))){
+                switch (rightAnswers.get(String.valueOf(questionNumber))) {
                     case "1" -> percentOfRightAnswer = answerOnePercent;
                     case "2" -> percentOfRightAnswer = answerTwoPercent;
                     case "3" -> percentOfRightAnswer = answerTheePercent;
                 }
 
-                questionStatistics.add(new QuestionStatistic(questionId, percentOfRightAnswer, percentOfStudentClicksPerQuestionAnswer));
+                questionStatistic = new QuestionStatistic(questionId, percentOfRightAnswer,percentOfStudentClicksPerQuestionAnswer);
 
-                 counterOne = 0;
-                 counterTwo = 0;
-                 counterThree = 0;
-
-                 questionNumber ++;
-                }
-            }
-            return questionStatistics;
+            return questionStatistic;
         }
+
 
 
         Statistic generateStatistic (Exam exam){
