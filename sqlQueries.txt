@@ -1,0 +1,41 @@
+STUDENTO lentels sukurimas:
+
+--create table "Student" (
+--"ID" int primary key,
+--"NAME" varchar(50) not null,
+--"SURNAME" varchar(50) not null,
+--"PSW" varchar(15) not null
+--);
+
+EGZAMINO lentels sukurimas :
+
+--create table "Exam"(
+--"ID" int not null primary key,
+--"SUBJECT_ID" int not null,
+--"TEACHER_ID" int not null,
+--"TOPIC" varchar(50) not null,
+--"DATE" timestamp,
+--constraint "fk_subjectId" foreign key ("SUBJECT_ID") references "Subject"("ID"),
+--constraint "fk_teacherId" foreign key ("TEACHER_ID") references "Teacher"("ID")
+--);
+
+STUDENTO ATSAKYMO lenteles sukurimas :
+
+--create table "Student_Answer"(
+--"ID" serial primary key,
+--"STUDENT_ID" int not null,
+--"EXAM_ID" int not null,
+--"QUESTION_NO" int not null,
+--"ANSWER" int not null,
+--constraint "fk_studentId" foreign key ("STUDENT_ID") references "Student"("ID"),
+--constraint "fk_examId" foreign key ("EXAM_ID") references "Exam"("ID"),
+--constraint "fk_questionNo" foreign key ("ID") references "Exam_questions"("ID")
+--);
+
+VISU STUDENTU gavimas :   SELECT* FROM "Student" ;
+
+STUDENTO PAZYMIO GAVIMAS: SELECT "Grade" FROM "Student_grade" WHERE "Student_id" = "ab1" AND "Exam_id" = "bc3";
+
+VISU STUDENTU PAZYMIU GAVIMAS: SELECT "name", "surnme", "grade" FROM "Student" LEFT OUTER JOI "Student_Grade" ON "Id" = "Student_id" WHERE "Exam_Id" = "1123a";
+
+
