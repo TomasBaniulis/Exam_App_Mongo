@@ -64,9 +64,11 @@ public class StatisticsService {
 
         QuestionStatistic questionStatisticsCalculation (Map<String , String> rightAnswers, Map<String, Map<String, String>> studentsAnswers, int questionNumber ) {
             QuestionStatistic questionStatistic = new QuestionStatistic();
-            int counterOne = 0;
-            int counterTwo = 0;
-            int counterThree = 0;
+            double counterOne = 0;
+            double counterTwo = 0;
+            double counterThree = 0;
+
+            double totalStudents = studentsAnswers.size();
 
             for (Map.Entry<String, Map<String, String>> oneStudentAnswer : studentsAnswers.entrySet()) {
                 Map<String, String> studentAnswers = oneStudentAnswer.getValue();
@@ -76,11 +78,11 @@ public class StatisticsService {
                     case "3" -> counterThree++;
                 }
             }
-            double answerOnePercent = Math.round(counterOne / studentsAnswers.size()) * 100;
+            double answerOnePercent =(counterOne / totalStudents) * 100;
             int a = (int)answerOnePercent;
-            double answerTwoPercent = Math.round(counterTwo / studentsAnswers.size()) * 100;
+            double answerTwoPercent =(counterTwo / totalStudents) * 100;
             int b = (int)answerTwoPercent;
-            double answerTheePercent = Math.round(counterThree / studentsAnswers.size()) * 100;
+            double answerTheePercent =(counterThree / totalStudents) * 100;
             int c = (int)answerTheePercent;
 
             Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
