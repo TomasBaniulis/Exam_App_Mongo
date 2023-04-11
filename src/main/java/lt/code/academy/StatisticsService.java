@@ -76,35 +76,30 @@ public class StatisticsService {
                     case "3" -> counterThree++;
                 }
             }
-                System.out.println("counter one:" + counterOne);
-                System.out.println("counter two:" + counterTwo);
-                System.out.println("counter three" + counterThree);
+            double answerOnePercent = Math.round(counterOne / studentsAnswers.size()) * 100;
+            int a = (int)answerOnePercent;
+            double answerTwoPercent = Math.round(counterTwo / studentsAnswers.size()) * 100;
+            int b = (int)answerTwoPercent;
+            double answerTheePercent = Math.round(counterThree / studentsAnswers.size()) * 100;
+            int c = (int)answerTheePercent;
 
-                System.out.println("student size:" + studentsAnswers.size());
+            Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
+            percentOfStudentClicksPerQuestionAnswer.put("1", a);
+            percentOfStudentClicksPerQuestionAnswer.put("2", b);
+            percentOfStudentClicksPerQuestionAnswer.put("3", c);
 
-                int answerOnePercent = counterOne / studentsAnswers.size() * 100;
-                System.out.println("answer one percent:" + answerOnePercent);
-                int answerTwoPercent = counterTwo / studentsAnswers.size() * 100;
-                System.out.println("answer two percent:" + answerTwoPercent);
-                int answerTheePercent = counterThree / studentsAnswers.size() * 100;
-                System.out.println("answer three percent: " + answerTheePercent);
 
-                Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
-                percentOfStudentClicksPerQuestionAnswer.put("1", answerOnePercent);
-                percentOfStudentClicksPerQuestionAnswer.put("2", answerTwoPercent);
-                percentOfStudentClicksPerQuestionAnswer.put("3", answerTheePercent);
+            String questionId = String.valueOf(questionNumber);
 
-                String questionId = String.valueOf(questionNumber);
+            int percentOfRightAnswer = 0;
 
-                int percentOfRightAnswer = 0;
+            switch (rightAnswers.get(String.valueOf(questionNumber))) {
+                case "1" -> percentOfRightAnswer = a;
+                case "2" -> percentOfRightAnswer = b;
+                case "3" -> percentOfRightAnswer = c;
+            }
 
-                switch (rightAnswers.get(String.valueOf(questionNumber))) {
-                    case "1" -> percentOfRightAnswer = answerOnePercent;
-                    case "2" -> percentOfRightAnswer = answerTwoPercent;
-                    case "3" -> percentOfRightAnswer = answerTheePercent;
-                }
-
-                questionStatistic = new QuestionStatistic(questionId, percentOfRightAnswer,percentOfStudentClicksPerQuestionAnswer);
+            questionStatistic = new QuestionStatistic(questionId, percentOfRightAnswer,percentOfStudentClicksPerQuestionAnswer);
 
             return questionStatistic;
         }
