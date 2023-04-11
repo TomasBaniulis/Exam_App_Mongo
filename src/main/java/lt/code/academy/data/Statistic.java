@@ -14,7 +14,8 @@ public class Statistic {
     private int numberOfStudents;
     private List<QuestionStatistic> questionStatistics;
 
-    public Statistic() {}
+    public Statistic() {
+    }
 
     public Statistic(String id, String examId, Double gradeAverage, Double highestGrade, Double lowestGrade, int numberOfStudents, List<QuestionStatistic> questionStatistics) {
         this.id = id;

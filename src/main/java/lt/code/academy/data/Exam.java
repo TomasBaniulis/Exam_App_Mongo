@@ -16,7 +16,7 @@ public class Exam extends Teacher {
     private Map<String, String> answersToChoose;
     private Map<String, String> rightAnswers;
 
-    private Map<String, Map<String, String >> studentAnswers;
+    private Map<String, Map<String, String>> studentAnswers;
     private Map<String, String> grades;
     private Statistic examStatistic;
 

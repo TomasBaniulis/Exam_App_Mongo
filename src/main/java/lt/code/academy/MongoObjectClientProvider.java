@@ -22,7 +22,7 @@ public class MongoObjectClientProvider {
     }
 
     public static MongoClient getClient() {
-        if(client == null) {
+        if (client == null) {
             new MongoObjectClientProvider();
         }
 

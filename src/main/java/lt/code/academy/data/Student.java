@@ -13,9 +13,10 @@ public class Student {
     private String studentSurname;
     private String studentUserName;
     private String studentPassword;
-    private List< String> grades;
+    private List<String> grades;
 
-    public Student() {}
+    public Student() {
+    }
 
     public Student(String studentName, String studentSurname, String studentUserName, String studentPassword) {
         this.studentName = studentName;
@@ -24,7 +25,7 @@ public class Student {
         this.studentPassword = studentPassword;
     }
 
-    public Student(ObjectId id, String studentName, String studentSurname, String studentUserName, String studentPassword, List< String>grades) {
+    public Student(ObjectId id, String studentName, String studentSurname, String studentUserName, String studentPassword, List<String> grades) {
         this.id = id;
         this.studentName = studentName;
         this.studentSurname = studentSurname;
@@ -73,11 +74,11 @@ public class Student {
         this.studentPassword = studentPassword;
     }
 
-    public List< String> getGrades() {
+    public List<String> getGrades() {
         return grades;
     }
 
-    public void setGrades(List< String> grades) {
+    public void setGrades(List<String> grades) {
         this.grades = grades;
     }
 

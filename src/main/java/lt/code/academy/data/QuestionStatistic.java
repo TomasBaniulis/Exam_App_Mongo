@@ -7,7 +7,8 @@ public class QuestionStatistic {
     private int percentOfRightAnswers;
     private Map<String, Integer> percentOfStudentClicksPerAnswer;
 
-    public QuestionStatistic() {}
+    public QuestionStatistic() {
+    }
 
     public QuestionStatistic(String questionId, int percentOfRightAnswers, Map<String, Integer> percentOfStudentClicksPerAnswer) {
         this.questionId = questionId;

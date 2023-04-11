@@ -14,21 +14,21 @@ public class StudentsAndTeachersService {
         this.dBService = dBService;
     }
 
-    void generateStudents (int numberOfStudents){
+    void generateStudents(int numberOfStudents) {
         int counter = 1;
-        for (int i = 0; i<numberOfStudents; i++){
+        for (int i = 0; i < numberOfStudents; i++) {
             String name = faker.name().firstName();
             String surname = faker.name().lastName();
             String username = String.valueOf(counter);
             String password = "alio";
-            counter ++;
-            dBService.insertStudents(new Student(name, surname, username,password ));
+            counter++;
+            dBService.insertStudents(new Student(name, surname, username, password));
         }
     }
 
-    void generateTeachers (int numberOfTeachers){
+    void generateTeachers(int numberOfTeachers) {
         int counter = 1;
-        for (int i = 0; i<numberOfTeachers; i++){
+        for (int i = 0; i < numberOfTeachers; i++) {
             String userName = String.valueOf(counter);
             String name = faker.name().firstName();
             String surname = faker.name().lastName();
@@ -37,7 +37,6 @@ public class StudentsAndTeachersService {
             dBService.insertTeachers(new Teacher(userName, name, surname, password));
         }
     }
-
 
 
 }

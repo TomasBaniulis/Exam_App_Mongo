@@ -12,31 +12,31 @@ import java.util.Map;
 public class StatisticsService {
 
 
-    double getExamGradeAverage (Exam exam){
-        Map <String, String> grades = exam.getGrades();
-        if (grades == null){
+    double getExamGradeAverage(Exam exam) {
+        Map<String, String> grades = exam.getGrades();
+        if (grades == null) {
             return 0;
         }
         double counter = 0;
-        for (Map.Entry<String, String> grade : grades.entrySet()){
+        for (Map.Entry<String, String> grade : grades.entrySet()) {
             counter += Integer.parseInt(grade.getValue());
         }
-       return counter/grades.size();
+        return counter / grades.size();
     }
 
-    double getHighestGrade (Exam exam){
-        Map <String, String> grades = exam.getGrades();
+    double getHighestGrade(Exam exam) {
+        Map<String, String> grades = exam.getGrades();
         double highestGrade = 0;
-        for (Map.Entry<String, String> grade : grades.entrySet()){
+        for (Map.Entry<String, String> grade : grades.entrySet()) {
             double studentGrade = Double.parseDouble(grade.getValue());
-            if ( studentGrade> highestGrade){
+            if (studentGrade > highestGrade) {
                 highestGrade = studentGrade;
             }
         }
         return highestGrade;
     }
 
-    double getLowesGrade (Exam exam) {
+    double getLowesGrade(Exam exam) {
         Map<String, String> grades = exam.getGrades();
         double lowestGrade = 10;
         for (Map.Entry<String, String> grade : grades.entrySet()) {
@@ -48,67 +48,66 @@ public class StatisticsService {
         return lowestGrade;
     }
 
-    List <QuestionStatistic> generateQuestionStatisticList (Exam exam){
-        List <QuestionStatistic> questionStatistics= new ArrayList<>();
-        Map<String, String > rightAnswers = exam.getRightAnswers();
-        Map<String, Map<String,String>> studentsAnswers = exam.getStudentAnswers();
+    List<QuestionStatistic> generateQuestionStatisticList(Exam exam) {
+        List<QuestionStatistic> questionStatistics = new ArrayList<>();
+        Map<String, String> rightAnswers = exam.getRightAnswers();
+        Map<String, Map<String, String>> studentsAnswers = exam.getStudentAnswers();
         int questionNumber = 1;
-        for (int i = 0; i < rightAnswers.size(); i++){
-            QuestionStatistic questionStatistic = questionStatisticsCalculation(rightAnswers, studentsAnswers,questionNumber);
+        for (int i = 0; i < rightAnswers.size(); i++) {
+            QuestionStatistic questionStatistic = questionStatisticsCalculation(rightAnswers, studentsAnswers, questionNumber);
             questionStatistics.add(questionStatistic);
             questionNumber++;
+        }
+        return questionStatistics;
+    }
+
+
+    QuestionStatistic questionStatisticsCalculation(Map<String, String> rightAnswers, Map<String, Map<String, String>> studentsAnswers, int questionNumber) {
+        QuestionStatistic questionStatistic = new QuestionStatistic();
+        double counterOne = 0;
+        double counterTwo = 0;
+        double counterThree = 0;
+
+        double totalStudents = studentsAnswers.size();
+
+        for (Map.Entry<String, Map<String, String>> oneStudentAnswer : studentsAnswers.entrySet()) {
+            Map<String, String> studentAnswers = oneStudentAnswer.getValue();
+            switch (studentAnswers.get(String.valueOf(questionNumber))) {
+                case "1" -> counterOne++;
+                case "2" -> counterTwo++;
+                case "3" -> counterThree++;
             }
-            return questionStatistics;
+        }
+        double answerOnePercent = (counterOne / totalStudents) * 100;
+        int a = (int) answerOnePercent;
+        double answerTwoPercent = (counterTwo / totalStudents) * 100;
+        int b = (int) answerTwoPercent;
+        double answerTheePercent = (counterThree / totalStudents) * 100;
+        int c = (int) answerTheePercent;
+
+        Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
+        percentOfStudentClicksPerQuestionAnswer.put("1", a);
+        percentOfStudentClicksPerQuestionAnswer.put("2", b);
+        percentOfStudentClicksPerQuestionAnswer.put("3", c);
+
+
+        String questionId = String.valueOf(questionNumber);
+
+        int percentOfRightAnswer = 0;
+
+        switch (rightAnswers.get(String.valueOf(questionNumber))) {
+            case "1" -> percentOfRightAnswer = a;
+            case "2" -> percentOfRightAnswer = b;
+            case "3" -> percentOfRightAnswer = c;
         }
 
+        questionStatistic = new QuestionStatistic(questionId, percentOfRightAnswer, percentOfStudentClicksPerQuestionAnswer);
 
-        QuestionStatistic questionStatisticsCalculation (Map<String , String> rightAnswers, Map<String, Map<String, String>> studentsAnswers, int questionNumber ) {
-            QuestionStatistic questionStatistic = new QuestionStatistic();
-            double counterOne = 0;
-            double counterTwo = 0;
-            double counterThree = 0;
-
-            double totalStudents = studentsAnswers.size();
-
-            for (Map.Entry<String, Map<String, String>> oneStudentAnswer : studentsAnswers.entrySet()) {
-                Map<String, String> studentAnswers = oneStudentAnswer.getValue();
-                switch (studentAnswers.get(String.valueOf(questionNumber))) {
-                    case "1" -> counterOne++;
-                    case "2" -> counterTwo++;
-                    case "3" -> counterThree++;
-                }
-            }
-            double answerOnePercent =(counterOne / totalStudents) * 100;
-            int a = (int)answerOnePercent;
-            double answerTwoPercent =(counterTwo / totalStudents) * 100;
-            int b = (int)answerTwoPercent;
-            double answerTheePercent =(counterThree / totalStudents) * 100;
-            int c = (int)answerTheePercent;
-
-            Map<String, Integer> percentOfStudentClicksPerQuestionAnswer = new HashMap<>();
-            percentOfStudentClicksPerQuestionAnswer.put("1", a);
-            percentOfStudentClicksPerQuestionAnswer.put("2", b);
-            percentOfStudentClicksPerQuestionAnswer.put("3", c);
+        return questionStatistic;
+    }
 
 
-            String questionId = String.valueOf(questionNumber);
-
-            int percentOfRightAnswer = 0;
-
-            switch (rightAnswers.get(String.valueOf(questionNumber))) {
-                case "1" -> percentOfRightAnswer = a;
-                case "2" -> percentOfRightAnswer = b;
-                case "3" -> percentOfRightAnswer = c;
-            }
-
-            questionStatistic = new QuestionStatistic(questionId, percentOfRightAnswer,percentOfStudentClicksPerQuestionAnswer);
-
-            return questionStatistic;
-        }
-
-
-
-        Statistic generateStatistic (Exam exam){
+    Statistic generateStatistic(Exam exam) {
 
         String examId = String.valueOf(exam.getId());
 
@@ -122,11 +121,11 @@ public class StatisticsService {
 
         int numberOfStudents = exam.getStudentAnswers().size();
 
-        List<QuestionStatistic> questionStatistics= generateQuestionStatisticList(exam);
+        List<QuestionStatistic> questionStatistics = generateQuestionStatisticList(exam);
 
 
-        return new Statistic(id, examId, gradeAverage, highestGrade, lowestGrade, numberOfStudents, questionStatistics );
+        return new Statistic(id, examId, gradeAverage, highestGrade, lowestGrade, numberOfStudents, questionStatistics);
 
-        }
+    }
 
 }
